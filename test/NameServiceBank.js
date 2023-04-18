@@ -54,12 +54,19 @@ describe(NAME, function () {
         });
 
         it("conduct your attack here", async function () {
-            // Your exploit here
-            // You will may create an attacking smart contract(s) but
-            // You may not modify any other part of the test or the
-            // contract you are attacking.
-            // We've already written the JS code above to deploy a
-            // contract called "NameServiceAttacker" for you.
+            
+
+            const [sender] = await ethers.getSigners();
+
+            const amount = ethers.utils.parseEther("1");
+            await sender.sendTransaction({
+                to: NameServiceAttacker.address,
+                value: amount
+              });
+
+
+            await NameServiceAttacker.attack();
+
         });
 
         after(async function () {
